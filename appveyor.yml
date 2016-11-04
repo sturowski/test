@@ -41,6 +41,7 @@ install:
   - cmd: echo "Platform='%Platform%'"
 
 before_build:
+  - cmd: set CPPSQL_BUILDDIR=C:\projects\build_cppsql
   - cmd: md "%CPPSQL_BUILDDIR%"
   - cd "%LIBZMQ_BUILDDIR%"
   - cmd: cmake -G "%CMAKE_GENERATOR%" "%APPVEYOR_BUILD_FOLDER%"
