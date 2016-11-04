@@ -43,8 +43,13 @@ matrix:
 before_install:
   - sudo apt-get update -qq
   - sudo apt-get install -y libopencv-dev
+  - pip install --user cpp-coveralls
 script:
   - rm -rf build
   - mkdir build
   - cd build
-  - cmake -DCMAKE_CXX_COMPILER=$COMPILER .. && make
+  - ./configure --enable-gcov
+  - cmake -DCMAKE_CXX_COMPILER=$COMPILER .. && make &&  make check
+  
+after_success:
+  - coveralls --exclude tests --gcov-options '\-lp'
