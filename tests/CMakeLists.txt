@@ -6,9 +6,16 @@ PROJECT(tests)
 set(tests
         test_select
 
-)
+        )
 
 
-foreach(test ${tests})
-  add_executable(${test} ${test}.cpp)
-endforeach()
+foreach (test ${tests})
+    add_executable(${test} ${test}.cpp)
+
+    if (WIN32)
+        add_test(NAME ${test} WORKING_DIRECTORY ${LIBRARY_OUTPUT_PATH} COMMAND ${test})
+    else ()
+        add_test(NAME ${test} COMMAND ${test})
+    endif ()
+    set_tests_properties(${test} PROPERTIES TIMEOUT 10)
+endforeach ()
